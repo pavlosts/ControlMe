@@ -10,11 +10,12 @@ except socket.error:
 
 print('Socket created!')
 
-host = 'localhost'
+print('Enter host\'s IP')
+server = input()
 port = 80
 
 try:
-    server = socket.gethostbyname(host)
+    server = socket.gethostbyname(server)
 except socket.gaierror:
     print('Error resolving hostname...')
     sys.exit()
@@ -26,7 +27,7 @@ except res is not 0:
     print('Error connection to server')
     sys.exit()
 
-print('You are now connected to server: ', host, ' with IP ', server)
+print('You are now connected to server: ', server, ' with IP ', server)
 
 # Inform server that client is connected
 msg = b"Client is now connected."
