@@ -23,4 +23,12 @@ print("Socket has been bound!")
 sock.listen(10)
 print("Socket is now listening for connections!")
 
+conn, addr = sock.accept()  # conn is name of the new socket
 
+print("Server is now connected with ", addr[0], " : ", str(addr[1]))
+
+data = conn.recv(4096)
+conn.sendall(data)
+
+conn.close()
+sock.close()
