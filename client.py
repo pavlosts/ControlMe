@@ -41,9 +41,9 @@ except socket.error:
 print('Server knows client is connected')
 
 # Receive data from server
-reply = sock.recv(4096)
+reply = sock.recv(1024)
 
-print(reply)
+print(reply.decode('utf-8'))
 
 sock.close()
 
