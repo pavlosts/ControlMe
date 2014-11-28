@@ -12,7 +12,7 @@ print('Socket created!')
 
 print('Enter host\'s IP')
 ip = input()
-port = 80
+port = 8888
 
 try:
     server = socket.gethostbyname(ip)
