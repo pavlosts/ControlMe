@@ -1,5 +1,6 @@
 import sys
 import socket
+import time
 
 try:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,6 +24,8 @@ print("Socket has been bound!")
 sock.listen(10)
 print("Socket is now listening for connections!")
 
+time.sleep(10)
+
 conn, addr = sock.accept()  # conn is name of the new socket
 
 print("Server is now connected with ", addr[0], " : ", str(addr[1]))
@@ -33,6 +36,7 @@ print(reply.decode('utf-8'))
 data = b"Hello client!"
 conn.sendall(data)
 
+print("Press ENTER to close the program.")
 input()
 
 conn.close()
