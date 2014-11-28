@@ -2,7 +2,7 @@ import sys
 import socket
 
 try:
-    sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error:
     print("Failed to create a socket...")
     sys.exit()
@@ -27,8 +27,13 @@ conn, addr = sock.accept()  # conn is name of the new socket
 
 print("Server is now connected with ", addr[0], " : ", str(addr[1]))
 
-data = conn.recv(4096)
+reply = conn.recv(4096)
+print(reply.decode('utf-8'))
+
+data = b"Hello client!"
 conn.sendall(data)
+
+input()
 
 conn.close()
 sock.close()
