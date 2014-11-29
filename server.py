@@ -26,15 +26,21 @@ print("Socket is now listening for connections!")
 
 time.sleep(10)
 
-conn, addr = sock.accept()  # conn is name of the new socket
+while 1:
+    conn, addr = sock.accept()  # conn is name of the new socket
 
-print("Server is now connected with ", addr[0], " : ", str(addr[1]))
+    print("Server is now connected with ", addr[0], " : ", str(addr[1]))
 
-reply = conn.recv(4096)
-print(reply.decode('utf-8'))
+    reply = conn.recv(4096)
+    reply = reply.decode('utf-8')
 
-data = b"Hello client!"
-conn.sendall(data)
+    if reply in 'exit':
+        break
+
+    print(reply)
+
+    data = b"Hello client!"
+    conn.sendall(data)
 
 print("Press ENTER to close the program.")
 input()
