@@ -29,23 +29,27 @@ except res is not 0:
 
 print('You are now connected to server: ', socket.getfqdn(ip), ' with IP ', ip)
 
-# Inform server that client is connected
-msg = b"Client is now connected."
+while 1:
 
-try:
-    sock.sendall(msg)
-except socket.error:
-    print('Failed to send message to server')
-    sys.exit()
+    msg = input()
+    if msg in 'exit':
+        break
 
-print('Server knows client is connected')
+    msg = msg.encode('utf-8')
 
-# Receive data from server
-reply = sock.recv(1024)
+    try:
+        sock.sendall(msg)
+    except socket.error:
+        print('Failed to send message to server')
+        sys.exit()
 
-print(reply.decode('utf-8'))
+    print('Server knows client is connected')
+
+    # Receive data from server
+    reply = sock.recv(4096)
+    print(reply.decode('utf-8'))
 
 sock.close()
 
-print("Press enter to close program")
+print("Press ENTER to close program.")
 input()
