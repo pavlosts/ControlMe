@@ -1,5 +1,6 @@
 import socket  # Necessary for sockets
 import sys  # Necessary for "exit"
+import time
 
 try:
     # Creates a socket
@@ -13,6 +14,7 @@ print('Socket created!')
 print('Enter host\'s IP')
 ip = input()
 port = 8888
+flag = 0
 
 try:
     server = socket.gethostbyname(ip)
@@ -25,6 +27,7 @@ try:
     res = sock.connect_ex((server, port))
 except res is not 0:
     print('Error connection to server')
+    time.sleep(10)
     sys.exit()
 
 print('You are now connected to server: ', socket.getfqdn(ip), ' with IP ', ip)
@@ -32,24 +35,27 @@ print('You are now connected to server: ', socket.getfqdn(ip), ' with IP ', ip)
 while 1:
 
     msg = input()
+
     if msg in 'exit':
-        break
+        flag = 1
 
     msg = msg.encode('utf-8')
-
     try:
         sock.sendall(msg)
     except socket.error:
         print('Failed to send message to server')
+        time.sleep(10)
         sys.exit()
-
-    print('Server knows client is connected')
 
     # Receive data from server
     reply = sock.recv(4096)
     print(reply.decode('utf-8'))
 
-sock.close()
+    if flag is 1:
+        print("Connection with ", ip, " is closing...")
+        time.sleep(2)
+        print("Bye!")
+        break
 
-print("Press ENTER to close program.")
-input()
+sock.close()
+time.sleep(2)

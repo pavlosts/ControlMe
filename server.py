@@ -12,6 +12,7 @@ print("Socket created!")
 
 host = ''
 port = 8888
+flag = 0
 
 
 try:
@@ -32,21 +33,30 @@ while 1:
 
     print("Server is now connected with ", addr[0], " : ", str(addr[1]))
 
-    while 1:
+    while flag is 0:
         reply = conn.recv(4096)
         reply = reply.decode('utf-8')
 
-        if reply in 'exit':
-            break
-
-        print(reply)
-
-        data = b"Hello client!"
+        data = b"OK!"
         conn.sendall(data)
 
-    conn.close()
+        print(reply)
+        if reply in 'exit':
+            flag = 1
 
-print("Press ENTER to close the program.")
-input()
+        if flag is 1:
+            print("Connection with ", addr[0], " is closing...")
+            time.sleep(2)
+            print("Bye!")
+            conn.close()
+
+    print("Do you want to close server?")
+    ans = input()
+    if ans == 'yes' or ans == 'Yes' or ans == 'YES' or ans == 'y' or ans == 'Y':
+        print("Server is closing...")
+        time.sleep(2)
+        break
+
+
 
 sock.close()
