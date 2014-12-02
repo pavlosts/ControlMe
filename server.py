@@ -10,7 +10,7 @@ except socket.error:
 
 print("Socket created!")
 
-host = ''
+host = socket.gethostbyname(socket.gethostname())
 port = 8888
 flag = 0
 
@@ -21,6 +21,8 @@ except socket.error:
     print('Error binding socket...')
     time.sleep(10)
     sys.exit()
+
+print("Server's IP is : ", host)
 
 print("Socket has been bound!")
 
