@@ -11,8 +11,7 @@ except socket.error:
 
 print('Socket created!')
 
-print('Enter host\'s IP')
-ip = input()
+ip = input('Enter IP or hostname')
 port = 8888
 flag = 0
 
@@ -20,6 +19,7 @@ try:
     server = socket.gethostbyname(ip)
 except socket.gaierror:
     print('Error resolving hostname...')
+    time.sleep(5)
     sys.exit()
 
 try:
